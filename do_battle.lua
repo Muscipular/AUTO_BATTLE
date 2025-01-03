@@ -44,7 +44,7 @@ function newAutoBattle(info)
         end
     end
     for i = 1, info.myPos do
-       math.random();
+        math.random();
     end
     r._stopAutoBattle = info.stopAutoBattle;
     for key, value in pairs(AUTO_BATTLE) do
@@ -99,13 +99,21 @@ function AUTO_BATTLE:stopAutoBattle()
     return { -1, -1, -1, -1 };
 end
 
+
+---@param name string
+---@return GLOBAL_CONFIG
+function AUTO_BATTLE:loadConfig(name)
+    local conf = dofile_s("public/config/" .. name .. ".lua") || CONFIG[name] || GLOBAL_CONFIG;
+    return conf;
+end
+
 ---@return GLOBAL_CONFIG
 function AUTO_BATTLE:getConfig()
     if self._conf == nil then
         local name = self:getCharList()[self.myPos].Name;
         ---@diagnostic disable-next-line: missing-fields
         self._conf = {};
-        for key, value in pairs(CONFIG[name] or GLOBAL_CONFIG) do
+        for key, value in pairs(self:loadConfig(name)) do
             self._conf[key] = value;
         end
         if self._conf.USE_UI_CONFG == 1 then

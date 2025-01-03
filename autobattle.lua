@@ -46,12 +46,13 @@ CONTEXT = nil;
 
 function dofile_s(file)
     local r, s = pcall(function()
-        dofile(file);
+        return dofile(file);
     end)
     if ! r then
         log("Dofile error: ", s);
+        return nil;
     end
-    return r;
+    return s;
 end
 
 ---Õ½¶·»Øµ÷

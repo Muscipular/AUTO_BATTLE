@@ -99,7 +99,6 @@ function AUTO_BATTLE:stopAutoBattle()
     return { -1, -1, -1, -1 };
 end
 
-
 ---@param name string
 ---@return GLOBAL_CONFIG
 function AUTO_BATTLE:loadConfig(name)

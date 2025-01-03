@@ -7,7 +7,7 @@ return {
     STOP_WHEN_LV1 = 0,       ---遇到1级停止自动战斗
     PC_BEHAVIOR = "PcMAG",   ---处理行为，默认PcAOE
     PET_BEHAVIOR = "PetAOE", ---处理行为，默认PetAOE
-    LV1_ENMEY = GLOBAL_CONFIG.LV1_ENMEY,
+    LV1_ENEMEY = GLOBAL_CONFIG.LV1_ENEMEY,
     OPTIONS = {
         MAGSKILL = "冰冻魔法", ---魔法类型
         MAX_FP_USE = 140, ---最大魔法消耗

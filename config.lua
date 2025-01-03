@@ -9,9 +9,7 @@ GLOBAL_CONFIG = {
     PET_BEHAVIOR = "PetAOE", ---处理行为，默认PetAOE
     OPTIONS = {},            ---其他配置
 
-    LV1_ENMEY = {
-        ['水龙蜥'] = 1, --怪物名字: 等级
-    },
+    LV1_ENEMEY = dofile_s("public/config/LV1_ENEMEY.lua"),
 }
 
 CONFIG = {
@@ -24,7 +22,7 @@ CONFIG = {
         STOP_WHEN_LV1 = 0,       ---遇到1级停止自动战斗
         PC_BEHAVIOR = "PcMAG",   ---处理行为，默认PcAOE
         PET_BEHAVIOR = "PetAOE", ---处理行为，默认PetAOE
-        LV1_ENMEY = GLOBAL_CONFIG.LV1_ENMEY,
+        LV1_ENEMEY = GLOBAL_CONFIG.LV1_ENEMEY,
         OPTIONS = {
             MAGSKILL = "冰冻魔法", ---魔法类型
             MAX_FP_USE = 140, ---最大魔法消耗

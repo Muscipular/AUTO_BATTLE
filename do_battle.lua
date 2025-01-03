@@ -8,7 +8,7 @@ GLOBAL_CONFIG = {
     STOP_WHEN_LV1 = 0, ---遇到1级停止自动战斗
     PC_BEHAVIOR = "PcAOE", ---处理行为，默认PcAOE
     PET_BEHAVIOR = "PetAOE", ---处理行为，默认PetAOE
-    LV1_ENMEY = {
+    LV1_ENEMEY = {
         ['水龙蜥'] = 1, --怪物名字: 等级
     },
     OPTIONS = {},
@@ -366,7 +366,7 @@ function AUTO_BATTLE:Process()
     if config.STOP_WHEN_LV1 == 1 then
         for key, enemy in pairs(self:getEnemyList()) do
             if enemy then
-                local map = config.LV1_ENMEY;
+                local map = config.LV1_ENEMEY;
                 if map[enemy.Name] && map[enemy.Name] >= enemy.lv then
                     return self:stopAutoBattle();
                 end

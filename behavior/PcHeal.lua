@@ -39,14 +39,25 @@ function AUTO_BATTLE:behaviorPcHeal()
             hp50[i] = false;
         end
     end
+    if charList[minHp].hp > charList[minHp].maxHp * 0.8 then
+        return
+    end
     if minHp < 0 then
         return
     end
 
+    local range = 2;
+    if ihp90 < 4 then
+        range = 1;
+    end
+    if ihp90 < 2 then
+        range = 0
+    end
+
     do
-        local ix, maxLv = self:findRangeSkill(2, "²¹ÑªÄ§·¨");
+        local ix, maxLv = self:findRangeSkill(range, "²¹ÑªÄ§·¨");
         if ix && maxLv > 0 then
-            return { COM_TYPE.COM_SKILL, 1, ix, 2 };
+            return { COM_TYPE.COM_SKILL, minHp, ix, 2 };
         end
     end
 end

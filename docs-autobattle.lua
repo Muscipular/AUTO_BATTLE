@@ -167,3 +167,16 @@ CONTEXT = nil;
 
 ---安全执行lua文件
 function dofile_s(file) end
+
+---读取Yaml
+---@param file string
+---@return any
+function READ_YAML(file) end
+
+---获取当前时间
+---@return number
+function GET_TIME() end
+
+---退出cg
+function EXIT() end
+

@@ -44,6 +44,8 @@ STATE_TYPE = {
 ---@type table
 CONTEXT = nil;
 
+math.randomseed(GET_TIME());
+
 function dofile_s(file)
     local r, s = pcall(function()
         return dofile(file);

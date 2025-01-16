@@ -43,9 +43,7 @@ function newAutoBattle(info)
             end
         end
     end
-    for i = 1, info.myPos do
-        math.random();
-    end
+    math.randomseed(GET_TIME() + info.myPos * 10000);
     r._stopAutoBattle = info.stopAutoBattle;
     for key, value in pairs(AUTO_BATTLE) do
         r[key] = value;
@@ -357,7 +355,7 @@ end
 ---@return COM_ACTION @返回具体指令, {战斗指令,目标位置,命令参数,命令参数2}
 function AUTO_BATTLE:Process()
     local charList = self:getCharList();
-    log(charList[self.myPos].Name, self.battleType, self.battleTurn, self.actionIndex, self.myPos, self.petIndex);
+    -- log(charList[self.myPos].Name, self.battleType, self.battleTurn, self.actionIndex, self.myPos, self.petIndex);
     local config = self:getConfig();
     if config.STOP_WHEN_BOSS == 1 && self.battleType >= BATTLE_TYPE.BOSS_BATTLE then
         --boss停止战斗
@@ -374,6 +372,7 @@ function AUTO_BATTLE:Process()
         end
     end
 
+    -- log(CONTEXT, "canUseSkill", self.canUseSkill, self.actionIndex, CONTEXT.lastCOM)
 
     if (charList[self.myPos].hp <= 0) then
         return { COM_TYPE.COM_NONE, -1, -1, -1 };

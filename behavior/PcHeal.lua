@@ -2,6 +2,7 @@ function AUTO_BATTLE:behaviorPcHeal()
     if self.canUseSkill != true then
         return
     end
+    -- OPEN_CONSOLE();
     local charList = self:getCharList();
     local hp90, hp70, hp50, minHp = {}, {}, {}, -1;
     local ihp90, ihp70, ihp50 = 0, 0, 0;
@@ -39,11 +40,13 @@ function AUTO_BATTLE:behaviorPcHeal()
             hp50[i] = false;
         end
     end
-    if charList[minHp].hp > charList[minHp].maxHp * 0.8 then
-        return
+    
+    if minHp <= 0 then
+        return self:doBehavior("PcAOE")
     end
-    if minHp < 0 then
-        return
+
+    if charList[minHp].hp > charList[minHp].maxHp * 0.8 then
+        return self:doBehavior("PcAOE")
     end
 
     local range = 2;
@@ -60,4 +63,5 @@ function AUTO_BATTLE:behaviorPcHeal()
             return { COM_TYPE.COM_SKILL, minHp, ix, 2 };
         end
     end
+    return self:doBehavior("PcAOE")
 end

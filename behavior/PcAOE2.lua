@@ -1,34 +1,25 @@
-function AUTO_BATTLE:behaviorPcAOE()
+function AUTO_BATTLE:behaviorPcAOE2()
     if self.canUseSkill != true then
         return
     end
     local avgLv, count, enemyList = self:scanEnemy();
+    if count < 2 then
+        return { COM_TYPE.COM_ATTACK, enemyList[1].index + 10, -1, -1 };
+    end
     do
         local ix, maxLv = self:findSkill("ÂÒÉä")
         if ix && maxLv > 0 then
-            if avgLv < 20 then
-                if count < 3 then avgLv = 1; else avgLv = 3; end
-            elseif avgLv < 40 then
-                if count < 6 then
-                    avgLv = 6;
-                else
-                    avgLv = -1;
-                end
-            elseif avgLv < 60 then
-                if count < 6 then
-                    avgLv = 8;
-                else
-                    avgLv = -1;
-                end
-            else
-                avgLv = 0;
-            end
-            if self.battleType == BATTLE_TYPE.BOSS_BATTLE then
-                avgLv = -1;
-            end
+            avgLv = math.max(1, math.floor(count / 2));
             return { COM_TYPE.COM_SKILL, enemyList[math.random(#enemyList)].index + 10, ix, math.min(avgLv, maxLv) };
         end
     end
+
+    -- do
+    --     local ix, maxLv = self:findSkill("»ìÂÒ¹¥»÷")
+    --     if ix && maxLv > 0 then
+    --         return { COM_TYPE.COM_SKILL, enemyList[#enemyList].index + 10, ix, -1 };
+    --     end
+    -- end
     do
         local ix, maxLv = self:findSkill("Æø¹¦µ¯")
         if ix && maxLv > 0 then
@@ -43,6 +34,7 @@ function AUTO_BATTLE:behaviorPcAOE()
                     avgLv = (count - 1) * 2 + 1;
                 end
             end
+            avgLv = math.min(avgLv, 5);
             return { COM_TYPE.COM_SKILL, enemyList[math.random(#enemyList)].index + 10, ix, math.min(avgLv, maxLv) };
         end
     end

@@ -1,34 +1,22 @@
-function AUTO_BATTLE:behaviorPcAOE()
+function AUTO_BATTLE:behaviorPcSkill()
+    log("canUseSkill", self.canUseSkill)
     if self.canUseSkill != true then
-        return
+        log("canUseSkill", self.canUseSkill)
+        return { COM_TYPE.COM_DEF, -1, -1, -1 };
     end
-    local avgLv, count, enemyList = self:scanEnemy();
     do
-        local ix, maxLv = self:findSkill("ÂÒÉä")
+        local ix, maxLv = self:findSkill(self:getConfig().OPTIONS.MAGSKILL)
         if ix && maxLv > 0 then
-            if avgLv < 20 then
-                if count < 3 then avgLv = 1; else avgLv = 3; end
-            elseif avgLv < 40 then
-                if count < 6 then
-                    avgLv = 6;
-                else
-                    avgLv = -1;
-                end
-            elseif avgLv < 60 then
-                if count < 6 then
-                    avgLv = 8;
-                else
-                    avgLv = -1;
-                end
-            else
-                avgLv = 0;
-            end
-            if self.battleType == BATTLE_TYPE.BOSS_BATTLE then
-                avgLv = -1;
-            end
-            return { COM_TYPE.COM_SKILL, enemyList[math.random(#enemyList)].index + 10, ix, math.min(avgLv, maxLv) };
+            return { COM_TYPE.COM_SKILL, 1, ix, -1 };
         end
     end
+
+    -- do
+    --     local ix, maxLv = self:findSkill("»ìÂÒ¹¥»÷")
+    --     if ix && maxLv > 0 then
+    --         return { COM_TYPE.COM_SKILL, enemyList[#enemyList].index + 10, ix, -1 };
+    --     end
+    -- end
     do
         local ix, maxLv = self:findSkill("Æø¹¦µ¯")
         if ix && maxLv > 0 then
@@ -43,6 +31,7 @@ function AUTO_BATTLE:behaviorPcAOE()
                     avgLv = (count - 1) * 2 + 1;
                 end
             end
+            avgLv = math.min(avgLv, 5);
             return { COM_TYPE.COM_SKILL, enemyList[math.random(#enemyList)].index + 10, ix, math.min(avgLv, maxLv) };
         end
     end

@@ -9,17 +9,9 @@ function AUTO_BATTLE:behaviorPcAOE()
             if avgLv < 20 then
                 if count < 3 then avgLv = 1; else avgLv = 3; end
             elseif avgLv < 40 then
-                if count < 6 then
-                    avgLv = 6;
-                else
-                    avgLv = -1;
-                end
+                avgLv = 6;
             elseif avgLv < 60 then
-                if count < 6 then
-                    avgLv = 8;
-                else
-                    avgLv = -1;
-                end
+                avgLv = 8
             else
                 avgLv = 0;
             end

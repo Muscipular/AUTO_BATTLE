@@ -3,7 +3,7 @@ function AUTO_BATTLE:behaviorPetAOE2()
 
 
     if c < 3 then
-        if math.random(100) <= 30 then
+        if math.random(100) <= 60 then
             local ix = self:findTech(function(s)
                 return (s.Name:find("±À»÷") || -1) > 0
             end)
@@ -12,7 +12,7 @@ function AUTO_BATTLE:behaviorPetAOE2()
             end
         end
     else        
-        if math.random(100) <= 15 then
+        if math.random(100) <= 30 then
             local ix = self:findTech(function(s)
                 return (s.Name:find("±À»÷") || -1) > 0
             end)

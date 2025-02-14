@@ -4,10 +4,11 @@ function AUTO_BATTLE:behaviorPcSkill()
         log("canUseSkill", self.canUseSkill)
         return { COM_TYPE.COM_DEF, -1, -1, -1 };
     end
+    local avgLv, count, enemyList = self:scanEnemy();
     do
         local ix, maxLv = self:findSkill(self:getConfig().OPTIONS.MAGSKILL)
         if ix && maxLv > 0 then
-            return { COM_TYPE.COM_SKILL, 1, ix, -1 };
+            return { COM_TYPE.COM_SKILL, enemyList[#enemyList].index + 10, ix, -1 };
         end
     end
 

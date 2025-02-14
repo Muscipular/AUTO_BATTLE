@@ -2,6 +2,14 @@ function AUTO_BATTLE:behaviorPcMAG()
     if self.canUseSkill != true then
         return
     end
+    if self.battleTurn <= 1 then
+        local charList = self:getCharList();
+        for index, value in pairs(charList) do
+            if value && value.hp > 0 && value.fp < value.maxFp * 0.1 then
+                EXIT();
+            end
+        end
+    end
     local avgLv, count, enemyList = self:scanEnemy();
     do
         local opt = self:getConfig().OPTIONS || {};
@@ -27,9 +35,24 @@ function AUTO_BATTLE:behaviorPcMAG()
         if range == 0 then
             target = enemyList[math.random(#enemyList)].index;
         end
-        local skLvReq = math.floor(avgLv / 10 + 1 + range * 1.6);
+        local skLvReq = math.floor(avgLv / 10 * (1.3 + range * 0.8) + 1);
         if avgLv > 60 then
             skLvReq = -1;
+        end
+        if opt.MAGSKILL == "RAND" then
+            if count <= 5 then
+                range = 0;
+            end
+            -- if range > 0 then
+            --     -- if math.random(100) > 50 then
+            --         opt.MAGSKILL = '¾«Éñ³å»÷²¨';
+            --         opt.MAX_FP_USE = opt.MAX_FP_USE2;
+            --     -- else
+            --         opt.MAGSKILL = ({ '»ðÑæÄ§·¨', '·çÈÐÄ§·¨', 'ÔÉÊ¯Ä§·¨', '±ù¶³Ä§·¨' })[math.random(4)];
+            --     -- end
+            -- else
+            opt.MAGSKILL = ({ '»ðÑæÄ§·¨', '·çÈÐÄ§·¨', 'ÔÉÊ¯Ä§·¨', '±ù¶³Ä§·¨' })[math.random(4)];
+            -- end
         end
         local ix, maxLv = self:findRangeSkill(range, opt.MAGSKILL || '»ðÑæÄ§·¨');
         if ix && maxLv > 0 then
